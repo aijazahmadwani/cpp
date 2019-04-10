@@ -15,7 +15,7 @@ class student{
     {
         cout << "Object created! " << endl;
         roll_no = 0;
-        //name = NULL;
+        name = "";
         marks = 0;
     }
     void getstudent (int r,string n,int m)
