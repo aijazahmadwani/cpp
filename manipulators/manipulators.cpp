@@ -10,12 +10,24 @@ using namespace std;
 
 int main()
 {
-    //manipulator operator
+    //********************manipulator operator*************************
+
     //endl : newline operator
     cout << "AIJAZ" << endl << "AHMAD" << endl<< "WANI"<< endl;  
+    
+    //*******************manipulator functions*************************
+
     //setw() used to set width
-    //manipulator functions
-    cout << 1;  
+    cout << setw(5)<<1<<endl;
+
+    //setfill('*') to fill empty spaces
+    cout << setw(10)<<setfill('*')<<2<<endl; 
+
+    //setprecision() to set no. of decimal places in float data
+    float pi =22 / 7.0;
+    cout << setprecision(4)<<pi<<endl; 
+
+
     return 0;
     
 }
