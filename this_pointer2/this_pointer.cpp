@@ -1,8 +1,8 @@
 /*Author: AIJAZ AHMAD WANI
 email: aijazahmad9864@gmail.com
-Date:17/ 4/ 2019
-*/
+Date:17/ 4/ 2019*/
 //to differentiate between data members and local variables having same name in a class using this pointer
+
 #include<iostream>
 using namespace std;
 
