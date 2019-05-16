@@ -21,8 +21,12 @@ public:
 		sample s3;
 		strcpy(s3.s,s);
 		strcat(s3.s," ");
-		strcat(s3.s,s2);
+		strcat(s3.s,s2.s);
 	return s3;
+	}
+	void show()
+	{
+		cout<<"String = " <<s;
 	}
 
 };
@@ -33,5 +37,6 @@ int main()
 	s1.getdata();
 	s2.getdata();
 	s3 = s1+s2;
-	cout<<"String = "<<s3;
+	s3.show();
+
 }
