@@ -7,14 +7,14 @@ composition allows reusability but not extensibility.*/
 #include <iostream>
 using namespace std;
 
-class author
+class author	//container class
 {
 	char name[20];
 public:
 	friend class book;
 };
 
-class book
+class book	//contained class
 {
 	float price;
 	char book_name[20];
