@@ -2,6 +2,14 @@
 email: aijazahmad9864@gmail.com
 Date:20/ 5/ 2019*/
 //overloading functions in base and derived classes
+
+/* overriding member functions means when we use member functions in derived class
+ that override - i.e., have the same name as  those in the base class */
+
+/* Rule: when the same function exists in both the base class and the derived class,the
+function in the derived class will be executed. (this is true of objects of the derived class.objects
+of the base class don't know anything about the derived class & will always use the base class
+functions.*/
 #include <iostream>
 #define max 5
 using namespace std;
@@ -12,7 +20,7 @@ protected:
 	int top;
 	int ar[max];
 public:
-	stack()
+	stack()		//constructor
 	{
 		top = -1;
 	}
