@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1559025229 source:c:\users\bca\desktop\cpp\string\main.cpp
+	<iostream>
+	<string>
+	<conio.h>
+
