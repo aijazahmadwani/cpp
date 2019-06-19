@@ -14,7 +14,7 @@ int main()
 	int n;
 	while((n=getche())!='\n')
 	{
-		result = result * 10 + n - 48;
+		result = result * 10 + n ;
 	}
 	cout<<"Number = "<<result<<endl;
 }
