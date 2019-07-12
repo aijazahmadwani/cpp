@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1562899355 source:c:\users\aijaz\desktop\c++\file operations\retreive data from file\main.cpp
+	<iostream>
+	<fstream>
+

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1562897992 source:c:\users\aijaz\desktop\c++\file operations\reading data\main.cpp
+	<fstream>
+	<iostream>
+
