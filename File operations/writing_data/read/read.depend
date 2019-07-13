@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1563013938 source:c:\users\aijaz\desktop\c++\file operations\writing_data\read\main.cpp
+	<iostream>
+	<fstream>
+	<conio.h>
+
