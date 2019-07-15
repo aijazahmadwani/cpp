@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1563201314 source:c:\users\aijaz\desktop\c++\file operations\copy data from one file to other\main.cpp
+	<iostream>
+	<fstream>
+
