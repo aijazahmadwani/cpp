@@ -60,7 +60,7 @@ void book::updatebook(char *t)
         if(!strcmp(t,title))
         {
             getbookdata();
-            file.seekp(file.tellp()-sizeof(*this)); //tells tells current pointer position...here we subtracted becoz file pointer is one step forward when we try to write
+            file.seekp(file.tellp()-sizeof(*this)); // tells current pointer position...here we subtracted becoz file pointer is one step forward when we try to write
             file.write((char*)this,sizeof(*this));
 
         }

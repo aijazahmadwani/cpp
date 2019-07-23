@@ -1,3 +1,10 @@
+/*
+Author : Aijaz Ahmad Wani
+email : aijazahmad9864@gmail.com
+Date : 20-7-2019
+*/
+// library management project
+// password = system
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
@@ -6,7 +13,23 @@
 void mainmenu(void);
 void password(void);
 using namespace std;
+class student
+{
+    public:
+        int student_id;
+    public:
+        void getstu(void)
+        {
+            cout<<"\nEnter student ID ";
+            cin>>student_id;
+        }
+        void showstu(void)
+        {
+            cout<<"\t\t"<<student_id<<endl;
+        }
 
+};
+student s;
 class book
 {
     private:
@@ -41,18 +64,156 @@ class book
         }
         void showbookdata()
         {
-            cout<<bookid<<"\t"<<booktitle<<"\t\t"<<bookauthor<<"\t\t"<<price<<"\t"<<quantity<<endl;
+            cout<<bookid<<"\t"<<booktitle<<"\t\t"<<bookauthor<<"\t\t"<<price<<"\t"<<quantity;
         }
         void storebookdata(void);
         void viewallbooks(void);
         void deletebook(char *);
         void searchbook(char*);
         void updatebook(char*);
+        void issuebook(char*);
+        void viewissuedbooks(void);
+        void removeissuedbook(char*);
 };
+void book::removeissuedbook(char* issue)
+{
+    ifstream fin;
+    ofstream fout;
+    int counter = 0;
+    fin.open("issue.dat",ios::binary|ios::in);
+    if(!fin)
+    {
+        cout<<"File not found\n";
+
+    }
+    else
+    {
+
+    fout.open("issuetemp.dat",ios::binary|ios::app);
+
+    fin.read((char*)this,sizeof(*this));
+    fin.read((char*)&s,sizeof(s));
+    while(!fin.eof())
+    {
+        if(!strcmp(booktitle,issue))
+        {
+            counter++;
+        }
+        if(strcmp(booktitle,issue))
+        {
+            fout.write((char*)this,sizeof(*this));
+            fout.write((char*)&s,sizeof(s));
+        }
+        fin.read((char*)this,sizeof(*this));
+        fin.read((char*)&s,sizeof(s));
+
+    }
+    fin.close();
+    fout.close();
+    remove("issue.dat");
+    rename("issuetemp.dat","issue.dat");
+    if(counter == 0)
+    {
+        cout<<"Book not found!\n";
+    }
+    else
+    {
+        cout<<endl<<issue<<" removed successfully\n";
+    }
+
+    }
+
+}
+void book::viewissuedbooks(void)
+{
+    ifstream fin;
+    int counter = 0;
+    fin.open("issue.dat",ios::binary|ios::in);
+    if(!fin)
+    {
+        cout<<"File not found\n";
+    }
+    else
+    {
+        fin.read((char*)this,sizeof(*this));
+        fin.read((char*)&s,sizeof(s));
+        if(fin.eof()==1)
+        {
+            cout<<"NO DATA found!\n";
+        }
+        cout<<"\nID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\tIssued to (Student_ID)\n";
+        while(!fin.eof())
+        {
+            showbookdata();
+            s.showstu();
+            fin.read((char*)this,sizeof(*this));
+            fin.read((char*)&s,sizeof(s));
+
+
+        }
+    }
+    fin.close();
+}
+void book::issuebook(char* issue)
+{
+    ifstream fin;
+    ofstream fout;
+    int counter=0;
+    char studentname[30];
+    fin.open("file.dat",ios::in|ios::binary);
+    if(!fin)
+    {
+        cout<<"File not found\n";
+    }
+    else
+    {
+
+
+        fin.read((char*)this,sizeof(*this));
+        while(!fin.eof())
+        {
+            if(!strcmp(issue,booktitle))
+            {
+                cout<<"Book found! \n";
+                cout<<"\nID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\n";
+                showbookdata();
+                counter++;
+                //student s;
+                s.getstu();
+                fout.open("issue.dat",ios::binary|ios::app);
+                fout.write((char*)this,sizeof(*this));
+                fout.write((char*)&s,sizeof(s));
+
+                cout<<"\nBook issued successfully to "<<s.student_id;
+
+            }
+            fin.read((char*)this,sizeof(*this));
+        }
+    }
+    if(counter==0)
+    {
+        cout<<"No record found\n";
+    }
+    fin.close();
+    fout.close();
+}
 void book::updatebook(char* update)
 {
     fstream f;
-    f.open("file.dat",ios::binary,ios::in);
+    f.open("file.dat",ios::binary|ios::ate|ios::in|ios::out);
+    f.seekp(0);
+    f.read((char*)this,sizeof(*this));
+    while(!f.eof())
+    {
+        if(!strcmp(update,booktitle))
+        {
+             getbookdata();
+             f.seekp(f.tellp()-sizeof(*this));
+             f.write((char*)this,sizeof(*this));
+        }
+        f.read((char*)this,sizeof(*this));
+    }
+    f.close();
 }
 void book::searchbook(char* search_book)
 {
@@ -70,7 +231,8 @@ void book::searchbook(char* search_book)
         {
             if(!strcmp(booktitle,search_book))
             {
-                cout<<"ID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\n";
+                cout<<"Book Found!\n";
+                cout<<"\nID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\n\n";
                 showbookdata();
                 counter++;
 
@@ -81,14 +243,14 @@ void book::searchbook(char* search_book)
     }
     if(counter==0)
     {
-        cout<<search_book<<" not found";
+        cout<<endl<<search_book<<" not found";
     }
-    getch();
 }
 void book::deletebook(char* del)
 {
     ofstream fout;
     ifstream fin;
+    int counter = 0;
     fin.open("file.dat",ios::binary|ios::in);
     if(!fin)
     {
@@ -100,6 +262,10 @@ void book::deletebook(char* del)
         fin.read((char*)this,sizeof(*this));
         while(!fin.eof())
         {
+             if(!strcmp(booktitle,del))
+             {
+                 counter++;
+             }
             if(strcmp(booktitle,del))
             {
                 fout.write((char*)this,sizeof(*this));
@@ -109,8 +275,16 @@ void book::deletebook(char* del)
         }
         fin.close();
         fout.close();
-        cout<<del<<" deleted successfully";
-        getch();
+        if(counter == 0)
+        {
+            cout<<"Book not found\n\n";
+        }
+        else
+        {
+            cout<<endl<<del<<" deleted successfully\n\n";
+        }
+
+
     }
     remove("file.dat");
     rename("temp.dat","file.dat");
@@ -122,19 +296,20 @@ void book::viewallbooks(void)
     if(!fin)
     {
         cout<<"No record found\n";
-        exit(0);
+
     }
     else
     {
-        cout<<"ID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\n";
+        cout<<"\nID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\n\n";
         fin.read((char*)this,sizeof(*this));
         while(!fin.eof())
         {
             showbookdata();
+            cout<<endl;
             fin.read((char*)this,sizeof(*this));
         }
         fin.close();
-        getch();
+
     }
 }
 void book :: storebookdata(void)
@@ -150,8 +325,8 @@ void book :: storebookdata(void)
         fout.open("file.dat",ios::binary|ios::app);
         fout.write((char*)this,sizeof(*this));
         fout.close();
-        cout<<"Record Successfully saved !\n";
-        getch();
+        cout<<"\n\nRecord Successfully saved !\n";
+
     }
 
 }
@@ -186,6 +361,7 @@ void mainmenu(void)
         b.storebookdata();
         break;
     case 2:
+        b.viewallbooks();
         cout<<"Enter Book Title to delete record : ";
         cin.ignore();
         cin.getline(title,40);
@@ -198,7 +374,11 @@ void mainmenu(void)
         b.searchbook(title);
         break;
     case 6:
-  //      issuebooks();
+        b.viewallbooks();
+        cout<<"\n\nEnter Book title you want  to issue : ";
+        cin.ignore();
+        cin.getline(title,40);
+        b.issuebook(title);
         break;
     case 5:
         b.viewallbooks();
@@ -210,10 +390,15 @@ void mainmenu(void)
         b.updatebook(title);
         break;
     case 7:
-  //      viewissuedbooks();
+        b.viewissuedbooks();
+
         break;
     case 8:
-    //    removeissuedbook();
+        b.viewissuedbooks();
+        cout<<"Enter Book title you want to remove : ";
+        cin.ignore();
+        cin.getline(title,40);
+        b.removeissuedbook(title);
         break;
     case 9:
         exit(0);
@@ -221,6 +406,7 @@ void mainmenu(void)
         cout<<"Wrong choice..........Please enter correct option ";
 
     }
+    getch();
 
     }
         getch();
