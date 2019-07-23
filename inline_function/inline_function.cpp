@@ -2,11 +2,15 @@
 email: aijazahmad9864@gmail.com
 Date:6/4/2019
 */
-//inline functions
+
+// inline function : is a function which is expanded in line when it is invoked.
+// compiler replaces the  function call with the corresponding function code.
+// done to small functions.
+// the benefit of speed of inline functions reduces as the function grows in size
 #include <iostream>
 using namespace std;
 
-inline double cube (double x){return (x*x*x);} 
+inline double cube (double x){return (x*x*x);}
 int main()
 {
 	double a,b,c=13.0;
