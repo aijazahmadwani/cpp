@@ -10,6 +10,8 @@ Date : 20-7-2019
 #include <stdlib.h>
 #include <string.h>
 #include <fstream>
+#include<cmath>
+#include <ctime>
 void mainmenu(void);
 void password(void);
 using namespace std;
@@ -332,6 +334,11 @@ void book :: storebookdata(void)
 }
 int main()
 {
+    // display current time and date
+    time_t t = time(NULL);
+    tm* tPtr = localtime(&t);
+    cout << " \t\t\tCurrent Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900<< endl;
+    cout << " \t\t\tCurrent Time: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) << endl;
     password();
     getch();
 }

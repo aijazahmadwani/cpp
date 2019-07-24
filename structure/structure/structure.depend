@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1563940241 source:c:\users\aijaz\desktop\c++\structure\main.cpp
+	<iostream>
+	<string.h>
+
