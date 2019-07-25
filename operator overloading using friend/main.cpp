@@ -2,7 +2,7 @@
 email: aijazahmad9864@gmail.com
 Date: 17/ 5/ 2019
 */
-//operator overloading using friend
+//operator overloading using friend function
 #include <iostream>
 using namespace std;
 class test2;
@@ -14,7 +14,6 @@ public:
 	{
 		cout << "Enter a : ";
 		cin >>a;
-
 	}
 	friend void operator >(test1,test2);
 };

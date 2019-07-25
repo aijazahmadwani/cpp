@@ -2,7 +2,8 @@
 email: aijazahmad9864@gmail.com
 Date: 16/ 5/ 2019
 */
-// static member function : are used to deal static data members,they never work with non-static data members  
+// static member function : are used to deal static data members,they never work with non-static data members
+// also called class member function -- they can be invoked with or without class
 #include <iostream>
 using namespace std;
 

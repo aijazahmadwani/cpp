@@ -3,8 +3,12 @@ Author: Aijaz Ahmad Wani
 email: aijazahmad9864@gmail.com
 Date: 27-06-2019
 Roll No. 18600006*/
-// OPERATIOR OVERLOADING
-// Addition of two complex numbers
+/* OPERATIOR OVERLOADING :when an operator is overloaded with multiple jobs.
+    It is way to implement compile time polymorphism.
+
+
+
+ Addition of two complex numbers*/
 
 #include <iostream>
 
@@ -15,7 +19,7 @@ class num
     private:
         float real,img;
     public:
-        num1()
+        num()
         {
             real=0;
             img=0;

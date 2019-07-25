@@ -2,7 +2,7 @@
 email: aijazahmad9864@gmail.com
 Date: 24/ 4/ 2019
 */
-// friend function
+// friend function can become friend to more than one class
 #include <iostream>
 using namespace std;
 class test2;
@@ -14,9 +14,9 @@ public:
 	{
 		cout <<"Enter value of a ";
 		cin >>a;
-	} 
+	}
 	friend void compare(test1,test2);
-	
+
 };
 
 class test2
@@ -29,7 +29,7 @@ public:
 		cin>>b;
 	}
 	friend void compare(test1,test2);
-	
+
 };
 
 void compare( test1 y,test2 z)
@@ -52,5 +52,5 @@ int main()
 	test2 t2;
 	t1.geta();
 	t2.getb();
-	compare(t1,t2); 
+	compare(t1,t2);
 }

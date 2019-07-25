@@ -2,7 +2,7 @@
 email: aijazahmad9864@gmail.com
 Date: 16/ 5/ 2019
 */
-// static member functoin
+// static member function
 #include <iostream>
 using namespace std;
 
@@ -12,7 +12,7 @@ private:
 	static int a,b;	//declaration
 public:
 	static void getdata()
-	{	
+	{
 		cout<<"Enter two integers : ";
 		cin >>a>>b;
 		cout<<"a = "<<a<<endl;

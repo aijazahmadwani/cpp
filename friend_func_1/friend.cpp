@@ -2,7 +2,9 @@
 email: aijazahmad9864@gmail.com
 Date: 24/ 4/ 2019
 */
-// friend function
+// friend function can access any member of the class to which it is friend
+// it is declared inside the class and defined outside the class
+// it cannot access the members directly
 #include <iostream>
 using namespace std;
 
