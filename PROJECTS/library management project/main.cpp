@@ -12,9 +12,83 @@ Date : 20-7-2019
 #include <fstream>
 #include<cmath>
 #include <ctime>
+# define add_days 15
+
+int leap_year(int);
 void mainmenu(void);
 void password(void);
+void display_time(void);
+
 using namespace std;
+
+class date
+{
+private:
+    int day,month,year;
+public:
+      void return_date(void)
+    {
+
+    time_t t = time(NULL);
+    tm* tPtr = localtime(&t);
+
+    day = tPtr->tm_mday;
+    month = (tPtr->tm_mon)+1;
+    year = (tPtr->tm_year)+1900;
+
+    day=day+add_days; // current day + 15
+
+    if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12)
+    {
+        if(day>31)
+        {
+            day = day-31;
+            if(month==12)
+            {
+                month=1;
+                year++;
+            }
+            else
+                month++;
+        }
+
+    }
+    else if(month==4 || month==6 || month==9 || month==11)
+    {
+        if(day>30)
+        {
+            day = day-30;
+            month++;
+        }
+
+    }
+    else if(month==2)
+    {
+        if(leap_year(year))
+        {
+            if(day>29)
+            {
+                day=day-29;
+                month++;
+            }int day,month,year;
+        }
+        else
+        {
+            if(day>28)
+            {
+                day = day-28;
+                month++;
+            }
+        }
+
+    }
+    }
+    void showreturndate(void)
+    {
+       cout<<"\t\t\t"<<day<<"-"<<month<<"-"<<year<<endl;
+    }
+}d;
+
 class student
 {
     public:
@@ -27,11 +101,11 @@ class student
         }
         void showstu(void)
         {
-            cout<<"\t\t"<<student_id<<endl;
+            cout<<"\t\t"<<student_id;
         }
 
-};
-student s;
+}s;
+//student s;
 class book
 {
     private:
@@ -95,6 +169,7 @@ void book::removeissuedbook(char* issue)
 
     fin.read((char*)this,sizeof(*this));
     fin.read((char*)&s,sizeof(s));
+    fin.read((char*)&d,sizeof(d));
     while(!fin.eof())
     {
         if(!strcmp(booktitle,issue))
@@ -105,9 +180,11 @@ void book::removeissuedbook(char* issue)
         {
             fout.write((char*)this,sizeof(*this));
             fout.write((char*)&s,sizeof(s));
+            fout.write((char*)&d,sizeof(d));
         }
         fin.read((char*)this,sizeof(*this));
         fin.read((char*)&s,sizeof(s));
+        fin.read((char*)&d,sizeof(d));
 
     }
     fin.close();
@@ -139,17 +216,20 @@ void book::viewissuedbooks(void)
     {
         fin.read((char*)this,sizeof(*this));
         fin.read((char*)&s,sizeof(s));
+        fin.read((char*)&d,sizeof(d));
         if(fin.eof()==1)
         {
             cout<<"NO DATA found!\n";
         }
-        cout<<"\nID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\tIssued to (Student_ID)\n";
+        cout<<"\nID\tTITLE\t\tAUTHOR\t\tPRICE\tQUANTITY\tIssued to (Student_ID)\tReturn Date\n";
         while(!fin.eof())
         {
             showbookdata();
             s.showstu();
+            d.showreturndate();
             fin.read((char*)this,sizeof(*this));
             fin.read((char*)&s,sizeof(s));
+            fin.read((char*)&d,sizeof(d));
 
 
         }
@@ -182,11 +262,15 @@ void book::issuebook(char* issue)
                 counter++;
                 //student s;
                 s.getstu();
+                d.return_date();
                 fout.open("issue.dat",ios::binary|ios::app);
                 fout.write((char*)this,sizeof(*this));
                 fout.write((char*)&s,sizeof(s));
+                fout.write((char*)&d,sizeof(d));
 
-                cout<<"\nBook issued successfully to "<<s.student_id;
+                cout<<"\nBook issued successfully to student ID : "<<s.student_id;
+                cout<<"\nReturn Date =\t ";
+                d.showreturndate();
 
             }
             fin.read((char*)this,sizeof(*this));
@@ -334,11 +418,8 @@ void book :: storebookdata(void)
 }
 int main()
 {
-    // display current time and date
-    time_t t = time(NULL);
-    tm* tPtr = localtime(&t);
-    cout << " \t\t\tCurrent Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900<< endl;
-    cout << " \t\t\tCurrent Time: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) << endl;
+
+    display_time(); // display current time and date
     password();
     getch();
 }
@@ -447,3 +528,28 @@ void password(void)
 
 
 }
+void display_time(void)
+{
+    time_t t = time(NULL);
+    tm* tPtr = localtime(&t);
+    cout << " \t\t\tCurrent Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900<< endl;
+    cout << " \t\t\tCurrent Time: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) << endl;
+}
+
+int leap_year(int year)
+    {
+        if((year%100==0)&&(year%400==0))
+        {
+            return 1;
+        }
+
+        else if(year%4==0)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
